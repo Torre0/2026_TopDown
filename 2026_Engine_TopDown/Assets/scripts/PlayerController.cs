@@ -4,13 +4,19 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public Sprite[] idleUp;
+    public Sprite[] idleDown;
+    public Sprite[] idleLeft;
+    public Sprite[] idleRight;
     public Sprite[] spriteUp;
     public Sprite[] spriteDown;
     public Sprite[] spriteLeft;
     public Sprite[] spriteRight;
     public float frameTime = 0.15f;
+    public float animationSpeed = 2f;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
+    private Sprite[] idleSprite;
     private Vector2 input;
     private Vector2 velocity;
     private Sprite[] currentSprites;
@@ -23,34 +29,43 @@ public class PlayerController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
 
         currentSprites = spriteDown;
-        sr.sprite = currentSprites[0];
+        idleSprite = idleDown;
+
+        sr.sprite = idleSprite[0];
     }
 
     void Update()
     {
-        if (input.sqrMagnitude <= 0.01f)
-        {
-            frameIndex = 0;
-            sr.sprite = currentSprites[frameIndex];
-            return;
-        }
+        if (sr == null) return;
 
-        timer += Time.deltaTime;
+        timer += Time.deltaTime * animationSpeed;
 
         if (timer >= frameTime)
         {
             timer = 0f;
             frameIndex++;
 
-            if (frameIndex >= currentSprites.Length)
-                frameIndex = 0;
+            if (input.sqrMagnitude <= 0.01f)
+            {
+                if (frameIndex >= idleSprite.Length)
+                    frameIndex = 0;
 
-            sr.sprite = currentSprites[frameIndex];
+                sr.sprite = idleSprite[frameIndex];
+            }
+            else
+            {
+                if (frameIndex >= currentSprites.Length)
+                    frameIndex = 0;
+
+                sr.sprite = currentSprites[frameIndex];
+            }
         }
     }
 
     private void FixedUpdate()
     {
+        if (rb == null) return;
+
         rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
     }
 
@@ -70,19 +85,34 @@ public class PlayerController : MonoBehaviour
         input = value.Get<Vector2>();
         velocity = input.normalized * moveSpeed;
 
+        if (input.sqrMagnitude <= 0.01f)
+            return;
+
         if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
         {
             if (input.x > 0)
+            {
                 ChangeSprites(spriteRight);
+                idleSprite = idleRight;
+            }
             else
+            {
                 ChangeSprites(spriteLeft);
+                idleSprite = idleLeft;
+            }
         }
         else
         {
             if (input.y > 0)
+            {
                 ChangeSprites(spriteUp);
+                idleSprite = idleUp;
+            }
             else
+            {
                 ChangeSprites(spriteDown);
+                idleSprite = idleDown;
+            }
         }
     }
 }
