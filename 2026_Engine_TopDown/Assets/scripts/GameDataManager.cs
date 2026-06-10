@@ -1,21 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
+using UnityEditor.Overlays;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
-[Serializable]
-public class PlayerData
-{
-    public List<string> collectedItems = new List<string>();
-    public int stage = 1;
-}
 
 public class GameDataManager : MonoBehaviour
 {
     public static GameDataManager Instance;
-    public PlayerData playerData;
+    public GameSettingData gameSattingData;
+    public SaveData saveData;
+    public int isTurorialFinished;
+
+    private string savePath;
 
     private void Awake()
     {
@@ -23,10 +17,28 @@ public class GameDataManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            saveData = Application.persistentDataPath + "/saveData.json";
+
+            LoadJsonData();
+            LoadPlayerPrefs();
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+    public int GetPlayerHp()
+    {
+        int baseHp = gameSattingData.startHp;
+        int bornusHp = gameSattingData.hpBonusPerDeath;
+
+        return baseHp + bornusHp * saveData.deathCount;
+    }
+
+    public int GetPlayerAttack()
+    {
+        int baseAttack = gameSattingData.startAttack;
+        int bornusAttack = gameSattingData.attackBonusPerDeath;
     }
 }
