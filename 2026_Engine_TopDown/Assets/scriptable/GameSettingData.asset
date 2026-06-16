@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameSettingData
   startHp: 100
   startAttack: 10
-  playerMoveSpeed: 5
+  playerMoveSpeed: 1
   hpBonusPerDeath: 5
   atkBonusPerDeath: 1

@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private Sprite[] currentSprites;
     private int frameIndex = 0;
     private float timer = 0f;
+    public int playerHP = 0;
+    public int playerAttack = 0;
 
     private void Awake()
     {
@@ -32,6 +34,24 @@ public class PlayerController : MonoBehaviour
         idleSprite = idleDown;
 
         sr.sprite = idleSprite[0];
+        sr.sprite = currentSprites[0];
+
+        moveSpeed = GameDataManager.Instance.GetPlayerMoveSpeed();
+        playerHP = GameDataManager.Instance.GetPlayerHp();
+        playerAttack = GameDataManager.Instance.GetPlayerAttack();
+    }
+
+    void Start()
+    {
+        if(GameDataManager.Instance.isTutorialFinished == 0)
+        {
+            Debug.Log("튜토리얼 오픈!");
+            GameDataManager.Instance.isTutorialFinished = 1;
+        }
+        else
+        {
+
+        }
     }
 
     void Update()
@@ -113,6 +133,14 @@ public class PlayerController : MonoBehaviour
                 ChangeSprites(spriteDown);
                 idleSprite = idleDown;
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            GameManager.Instance.GameOver();
         }
     }
 }

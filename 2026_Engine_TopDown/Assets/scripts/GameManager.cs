@@ -26,11 +26,12 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
-
+        GameDataManager.Instance.SaveGameResult();
+        GoTitle();
     }
 
     public void GoTitle()
     {
-
+        SceneManager.LoadScene(titleSceneName);
     }
 }
