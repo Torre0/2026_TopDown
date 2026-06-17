@@ -5,6 +5,12 @@ public class EnemyHealth : MonoBehaviour
     public int maxHealth = 30;
 
     private int currentHealth;
+    private Animator anim;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     private void Start()
     {
@@ -25,6 +31,11 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        if (anim != null)
+        {
+            anim.SetTrigger("Die");
+        }
+
+        Destroy(gameObject, 1f);
     }
 }
