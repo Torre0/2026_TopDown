@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     public int playerHP = 0;
     public int playerAttack = 0;
 
+    public Vector2 lookDirection = Vector2.down;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -107,6 +109,8 @@ public class PlayerController : MonoBehaviour
 
         if (input.sqrMagnitude <= 0.01f)
             return;
+
+        lookDirection = input.normalized;
 
         if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
         {

@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class EnemyTraceController : MonoBehaviour
 {
+    [HideInInspector]
+    public bool isKnockback = false;
+
     [Header("이동 설정")]
     public float moveSpeed = 2f;
     public float traceDistance = 5f;
@@ -30,6 +33,13 @@ public class EnemyTraceController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // 넉백 중에는 움직이지 않음
+        if (isKnockback)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         if (player == null)
         {
             rb.linearVelocity = Vector2.zero;

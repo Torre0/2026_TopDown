@@ -10144,6 +10144,7 @@ GameObject:
   - component: {fileID: 1150904715}
   - component: {fileID: 1150904718}
   - component: {fileID: 1150904719}
+  - component: {fileID: 1150904720}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -10449,6 +10450,7 @@ MonoBehaviour:
   animationSpeed: 2
   playerHP: 0
   playerAttack: 0
+  lookDirection: {x: 0, y: -1}
 --- !u!61 &1150904718
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10508,12 +10510,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   attackPoint: {fileID: 1429944068}
+  attackDistance: 0.4
   attackRange: 0.5
   attackDamage: 10
   attackCooldown: 0.5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+  attackEffectPrefab: {fileID: 4305480339503563805, guid: a07d5206319b3cd41b85000120e07d72, type: 3}
+--- !u!114 &1150904720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150904712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e157737ad5fa0a440a57c3b05c2b5118, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 100
 --- !u!1 &1291102569
 GameObject:
   m_ObjectHideFlags: 0
@@ -10638,6 +10655,7 @@ GameObject:
   - component: {fileID: 1686057874}
   - component: {fileID: 1686057875}
   - component: {fileID: 1686057876}
+  - component: {fileID: 1686057877}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
@@ -10658,7 +10676,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 3
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -10745,6 +10763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05741727b0d057240bc3927c8a4ee60f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyTraceController
+  isKnockback: 0
   moveSpeed: 0.6
   traceDistance: 2
   damage: 10
@@ -10846,6 +10865,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1686057877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686057867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180fb1f1127ff6d4a9ab3e0b542d91bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  maxHealth: 50
+  knockbackDistance: 0.2
+  knockbackDuration: 0.15
 --- !u!1 &1708521367
 GameObject:
   m_ObjectHideFlags: 0

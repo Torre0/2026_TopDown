@@ -1,15 +1,27 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    [Header("체력")]
     public int maxHealth = 30;
 
+    [Header("넉백")]
+    public float knockbackDistance = 1f;
+    public float knockbackDuration = 0.15f;
+
     private int currentHealth;
-    private Animator anim;
+    private bool isDead;
+
+    private Rigidbody2D rb;
+    private SpriteRenderer sr;
+    private EnemyTraceController trace;
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+        trace = GetComponent<EnemyTraceController>();
     }
 
     private void Start()
@@ -19,23 +31,69 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (isDead)
+            return;
+
         currentHealth -= damage;
 
-        Debug.Log("적 체력 : " + currentHealth);
+        Debug.Log($"{gameObject.name} 체력 : {currentHealth}");
+
+        StartCoroutine(HitEffect());
 
         if (currentHealth <= 0)
         {
             Die();
+            return;
         }
+
+        StartCoroutine(Knockback());
+    }
+
+    private IEnumerator HitEffect()
+    {
+        if (sr == null)
+            yield break;
+
+        sr.color = Color.red;
+
+        yield return new WaitForSeconds(0.1f);
+
+        sr.color = Color.white;
+    }
+
+    private IEnumerator Knockback()
+    {
+        if (trace != null)
+            trace.isKnockback = true;
+
+        GameObject player =
+            GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            Vector2 direction =
+                (transform.position - player.transform.position).normalized;
+
+            transform.position +=
+                (Vector3)(direction * knockbackDistance);
+        }
+
+        yield return new WaitForSeconds(knockbackDuration);
+
+        if (trace != null)
+            trace.isKnockback = false;
     }
 
     private void Die()
     {
-        if (anim != null)
-        {
-            anim.SetTrigger("Die");
-        }
+        isDead = true;
 
-        Destroy(gameObject, 1f);
+        if (trace != null)
+            trace.enabled = false;
+
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
+
+        Destroy(gameObject, 0.2f);
     }
 }
