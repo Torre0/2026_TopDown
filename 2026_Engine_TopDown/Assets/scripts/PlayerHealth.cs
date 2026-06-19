@@ -28,8 +28,19 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             Die();
         }
+    }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
     }
 
     private IEnumerator HitEffect()
@@ -47,9 +58,6 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("플레이어 사망");
-
-        // 게임오버 처리
-        // GameManager.Instance.GameOver();
 
         Destroy(gameObject);
     }
