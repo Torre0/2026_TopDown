@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public string titleSceneName = "TitleScene";
     public string gameSceneName = "GameScene";
+    public string tutorialSceneName = "TutorialScene";
 
     private void Awake()
     {
@@ -34,4 +35,9 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(titleSceneName);
     }
+
+    public void StartTutorial()
+{
+    SceneManager.LoadScene(tutorialSceneName);
+}
 }

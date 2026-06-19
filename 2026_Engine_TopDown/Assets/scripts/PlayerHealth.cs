@@ -59,6 +59,6 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("플레이어 사망");
 
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }
