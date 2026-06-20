@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public string titleSceneName = "TitleScene";
-    public string gameSceneName = "GameScene";
-    public string tutorialSceneName = "TutorialScene";
+    public string titleSceneName = "Title";
+    public string gameSceneName = "Level_1";
+    public string tutorialSceneName = "Tutorial";
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void StartTutorial()
-{
-    SceneManager.LoadScene(tutorialSceneName);
-}
+    {
+        SceneManager.LoadScene(tutorialSceneName);
+    }
 }

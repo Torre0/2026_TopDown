@@ -31,21 +31,40 @@ public class GameDataManager : MonoBehaviour
     public int GetPlayerHp()
     {
         int baseHp = gameSattingData.startHp;
-        int bornusHp = gameSattingData.hpBonusPerDeath;
 
-        return baseHp + bornusHp * saveData.deathCount;
+        int deathBonus =
+            gameSattingData.hpBonusPerDeath *
+            saveData.deathCount;
+
+        int upgradeBonus =
+            saveData.hpLevel * 20;
+
+        return baseHp +
+            deathBonus +
+            upgradeBonus;
     }
 
     public int GetPlayerAttack()
     {
-        int baseAttack = gameSattingData.startAttack;
-        int bonusAttack = gameSattingData.atkBonusPerDeath;
-        return baseAttack + bonusAttack * saveData.deathCount;
+        int baseAttack =
+        gameSattingData.startAttack;
+
+        int deathBonus =
+            gameSattingData.atkBonusPerDeath *
+            saveData.deathCount;
+
+        int upgradeBonus =
+            saveData.attackLevel * 2;
+
+        return baseAttack +
+            deathBonus +
+            upgradeBonus;
     }
 
     public float GetPlayerMoveSpeed()
     {
-        return gameSattingData.playerMoveSpeed;
+        return gameSattingData.playerMoveSpeed +
+           saveData.speedLevel * 0.2f;
     }
 
     public void SaveGameResult()
@@ -109,5 +128,56 @@ public class GameDataManager : MonoBehaviour
         LoadPlayerPrefs();
 
         Debug.Log("PlayerPrefs 삭제 완료");
+    }
+
+    public void AddGold(int amount)
+    {
+        saveData.totalGold += amount;
+
+        SaveJsonData();
+
+        Debug.Log("현재 골드 : " + saveData.totalGold);
+    }
+
+    public bool UseGold(int amount)
+    {
+        if (saveData.totalGold < amount)
+        {
+            return false;
+        }
+
+        saveData.totalGold -= amount;
+
+        SaveJsonData();
+
+        return true;
+    }
+    
+    public void UpgradeAttack()
+    {
+        int cost = 50;
+
+        if (UseGold(cost))
+        {
+            saveData.attackLevel++;
+
+            SaveJsonData();
+
+            Debug.Log("공격력 강화!");
+        }
+    }
+
+    public void UpgradeSpeed()
+    {
+        int cost = 50;
+
+        if (UseGold(cost))
+        {
+            saveData.speedLevel++;
+
+            SaveJsonData();
+
+            Debug.Log("이동속도 강화!");
+        }
     }
 }

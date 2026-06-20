@@ -10,6 +10,11 @@ public class EnemyHealth : MonoBehaviour
     public float knockbackDistance = 1f;
     public float knockbackDuration = 0.15f;
 
+    [Header("코인 드랍")]
+    public GameObject coinPrefab;
+    public int minCoinDrop = 1;
+    public int maxCoinDrop = 5;
+
     private int currentHealth;
     private bool isDead;
 
@@ -87,6 +92,36 @@ public class EnemyHealth : MonoBehaviour
     private void Die()
     {
         isDead = true;
+
+        int dropCount =
+            Random.Range(
+                minCoinDrop,
+                maxCoinDrop + 1);
+
+        for (int i = 0; i < dropCount; i++)
+        {
+            GameObject coin =
+                Instantiate(
+                    coinPrefab,
+                    transform.position,
+                    Quaternion.identity);
+
+            Rigidbody2D coinRb =
+                coin.GetComponent<Rigidbody2D>();
+
+            if (coinRb != null)
+            {
+                Vector2 direction =
+                    Random.insideUnitCircle.normalized;
+
+                float force =
+                    Random.Range(1f, 2f);
+
+                coinRb.AddForce(
+                    direction * force,
+                    ForceMode2D.Impulse);
+            }
+        }
 
         if (trace != null)
             trace.enabled = false;
