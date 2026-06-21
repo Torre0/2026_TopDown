@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 9186464800948785429}
   - component: {fileID: 1890207342615199559}
   - component: {fileID: 2307511225352025623}
+  - component: {fileID: 2408499418099049560}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -571,6 +572,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 10
+--- !u!114 &2408499418099049560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320866895048554460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d993f775f88993a4fa4cd9e5ec827f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeapon
+  currentWeapon: {fileID: 0}
+  weaponDropPrefab: {fileID: 7359019477880876352, guid: 253407b641071b64591cd3a1ef65995e, type: 3}
 --- !u!1 &4684246883864582351
 GameObject:
   m_ObjectHideFlags: 0
