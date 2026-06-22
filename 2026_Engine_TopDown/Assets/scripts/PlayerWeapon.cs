@@ -155,6 +155,26 @@ public class PlayerWeapon : MonoBehaviour
             return;
         }
 
+        // 기존 무기가 있으면 바닥에 떨어뜨림
+        if (currentWeapon != null)
+        {
+            GameObject obj =
+                Instantiate(
+                    weaponDropPrefab,
+                    transform.position + Vector3.down * 0.2f,
+                    Quaternion.identity);
+
+            WeaponPickup pickup =
+                obj.GetComponent<WeaponPickup>();
+
+            if (pickup != null)
+            {
+                pickup.weaponData = currentWeapon;
+                pickup.RefreshSprite();
+            }
+        }
+
+        // 새 무기 장착
         currentWeapon = nearbyWeapon.weaponData;
 
         RefreshWeaponSprite();
@@ -162,6 +182,8 @@ public class PlayerWeapon : MonoBehaviour
         Debug.Log("무기 획득 : " + currentWeapon.weaponName);
 
         Destroy(nearbyWeapon.gameObject);
+
+        nearbyWeapon = null;
     }
 
     void DropWeapon()
@@ -181,6 +203,8 @@ public class PlayerWeapon : MonoBehaviour
         if (pickup != null)
         {
             pickup.weaponData = currentWeapon;
+
+            pickup.RefreshSprite(); // 추가
         }
 
         currentWeapon = null;
