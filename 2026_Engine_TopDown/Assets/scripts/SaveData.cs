@@ -7,7 +7,6 @@ public class SaveData
     public int totalGold;
 
     // 영구 강화
-    public int attackLevel;
     public int hpLevel;
     public int speedLevel;
 }

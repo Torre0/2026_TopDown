@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [Header("게임오버 UI")]
+    public GameObject gameOverPanel;
+
     public int maxHealth = 100;
 
     private int currentHealth;
@@ -15,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
+        maxHealth = GameDataManager.Instance.GetPlayerHp();
         currentHealth = maxHealth;
     }
 
@@ -56,9 +60,14 @@ public class PlayerHealth : MonoBehaviour
     }
 
     private void Die()
-    {
-        Debug.Log("플레이어 사망");
+{
+    Debug.Log("플레이어 사망");
 
-        //Destroy(gameObject);
+    if (gameOverPanel != null)
+    {
+        gameOverPanel.SetActive(true);
     }
+
+    Time.timeScale = 0f;
+}
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameSettingData
   m_EditorClassIdentifier: Assembly-CSharp::GameSettingData
   startHp: 10
-  startAttack: 5
+  startAttack: 4
   playerMoveSpeed: 1.1
-  hpBonusPerDeath: 5
-  atkBonusPerDeath: 1
+  hpBonusPerDeath: 0
+  atkBonusPerDeath: 0

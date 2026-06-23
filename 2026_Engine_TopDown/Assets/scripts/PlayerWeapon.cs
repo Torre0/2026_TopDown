@@ -39,6 +39,8 @@ public class PlayerWeapon : MonoBehaviour
     private WeaponPickup nearbyWeapon;
     private PlayerController playerController;
 
+    public Animator weaponAnimator;
+
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -62,7 +64,7 @@ public class PlayerWeapon : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            StartCoroutine(SwingWeapon());
+            Attack();
         }
     }
 
@@ -117,10 +119,14 @@ public class PlayerWeapon : MonoBehaviour
 
     public int GetDamage()
     {
-        if (currentWeapon == null)
-            return 5;
+        int playerAttack =
+            GameDataManager.Instance.GetPlayerAttack();
 
-        return currentWeapon.attackDamage;
+        if (currentWeapon == null)
+            return playerAttack;
+
+        return playerAttack +
+            currentWeapon.attackDamage;
     }
 
     public float GetAttackSpeed()
@@ -134,7 +140,7 @@ public class PlayerWeapon : MonoBehaviour
     public float GetAttackRange()
     {
         if (currentWeapon == null)
-            return 1f;
+            return 0.3f;
 
         return currentWeapon.attackRange;
     }
@@ -293,5 +299,24 @@ public class PlayerWeapon : MonoBehaviour
                 startZ);
 
         isSwinging = false;
+    }
+
+    void Attack()
+    {
+        int dir = 0;
+
+        Vector2 look = playerController.lookDirection;
+
+        if (Mathf.Abs(look.x) > Mathf.Abs(look.y))
+        {
+            dir = look.x > 0 ? 0 : 1;
+        }
+        else
+        {
+            dir = look.y > 0 ? 2 : 3;
+        }
+
+        weaponAnimator.SetInteger("Direction", dir);
+        weaponAnimator.SetTrigger("Attack");
     }
 }

@@ -47,18 +47,14 @@ public class GameDataManager : MonoBehaviour
     public int GetPlayerAttack()
     {
         int baseAttack =
-        gameSattingData.startAttack;
+            gameSattingData.startAttack;
 
         int deathBonus =
             gameSattingData.atkBonusPerDeath *
             saveData.deathCount;
 
-        int upgradeBonus =
-            saveData.attackLevel * 2;
-
         return baseAttack +
-            deathBonus +
-            upgradeBonus;
+            deathBonus;
     }
 
     public float GetPlayerMoveSpeed()
@@ -151,20 +147,6 @@ public class GameDataManager : MonoBehaviour
         SaveJsonData();
 
         return true;
-    }
-    
-    public void UpgradeAttack()
-    {
-        int cost = 50;
-
-        if (UseGold(cost))
-        {
-            saveData.attackLevel++;
-
-            SaveJsonData();
-
-            Debug.Log("공격력 강화!");
-        }
     }
 
     public void UpgradeSpeed()

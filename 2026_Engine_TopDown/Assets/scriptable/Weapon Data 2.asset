@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Weapon Data 2
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: "\uCD08\uC2EC\uC790\uC758 \uAC80"
-  attackDamage: 7
+  attackDamage: 3
   attackSpeed: 0.2
-  attackRange: 1
+  attackRange: 0.3
   effectScale: 1
   icon: {fileID: 6364837610762557108, guid: d9b12ef792c1de048b0db43c51af37fe, type: 3}

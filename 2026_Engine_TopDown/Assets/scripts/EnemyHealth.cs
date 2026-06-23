@@ -91,7 +91,12 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
+        if (isDead)
+            return;
+
         isDead = true;
+
+        Vector3 deathPosition = transform.position;
 
         int dropCount =
             Random.Range(
@@ -128,6 +133,12 @@ public class EnemyHealth : MonoBehaviour
 
         if (rb != null)
             rb.linearVelocity = Vector2.zero;
+
+        if (StageManager.Instance != null)
+        {
+            StageManager.Instance.SetLastEnemyPosition(
+                transform.position);
+        }
 
         Destroy(gameObject, 0.2f);
     }
