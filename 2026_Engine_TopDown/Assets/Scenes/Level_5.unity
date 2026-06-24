@@ -3941,7 +3941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonGenerator
   startRoomPrefab: {fileID: 6971905020686324024, guid: bd697aa510661b34288ef836938bd955, type: 3}
-  battleRoomPrefab: {fileID: 6971905020686324024, guid: 61f0c4a8c36d73f42a310124863c311d, type: 3}
+  battleRoomPrefab: {fileID: 6971905020686324024, guid: 9895a800467f98e41b0e2efdb0c874e1, type: 3}
   horizontalCorridorPrefab: {fileID: 8823549522755127377, guid: f007c074f46516040920722147024592, type: 3}
   verticalCorridorPrefab: {fileID: 8823549522755127377, guid: 5bc0e97ed4f01d547b4d3aad1410e9cf, type: 3}
   player: {fileID: 1150904714}
